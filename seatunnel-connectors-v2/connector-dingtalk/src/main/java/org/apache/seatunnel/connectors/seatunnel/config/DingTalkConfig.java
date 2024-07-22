@@ -19,8 +19,16 @@ package org.apache.seatunnel.connectors.seatunnel.config;
 
 import org.apache.seatunnel.api.configuration.Option;
 import org.apache.seatunnel.api.configuration.Options;
+import org.apache.seatunnel.api.configuration.ReadonlyConfig;
 
-public class DingTalkConfig {
+import lombok.Getter;
+import lombok.ToString;
+
+import java.io.Serializable;
+
+@Getter
+@ToString
+public class DingTalkConfig implements Serializable {
 
     public static final Option<String> URL =
             Options.key("url")
@@ -33,4 +41,13 @@ public class DingTalkConfig {
                     .stringType()
                     .noDefaultValue()
                     .withDescription("DingTalk robot secret");
+
+    protected String url;
+
+    protected String secret;
+
+    public DingTalkConfig(ReadonlyConfig config) {
+        this.url = config.get(URL);
+        this.secret = config.get(SECRET);
+    }
 }
