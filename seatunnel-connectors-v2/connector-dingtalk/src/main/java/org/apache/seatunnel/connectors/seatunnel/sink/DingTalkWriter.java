@@ -19,7 +19,6 @@ package org.apache.seatunnel.connectors.seatunnel.sink;
 
 import org.apache.seatunnel.api.sink.SupportMultiTableSinkWriter;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
-import org.apache.seatunnel.api.table.type.SeaTunnelRowType;
 import org.apache.seatunnel.connectors.seatunnel.common.sink.AbstractSinkWriter;
 import org.apache.seatunnel.connectors.seatunnel.exception.DingTalkConnectorErrorCode;
 import org.apache.seatunnel.connectors.seatunnel.exception.DingTalkConnectorException;
@@ -44,10 +43,7 @@ public class DingTalkWriter extends AbstractSinkWriter<SeaTunnelRow, Void>
 
     private RobotClient robotClient;
 
-    private final SeaTunnelRowType seaTunnelRowType;
-
-    public DingTalkWriter(SeaTunnelRowType seaTunnelRowType, String url, String secret) {
-        this.seaTunnelRowType = seaTunnelRowType;
+    public DingTalkWriter(String url, String secret) {
         this.robotClient = new RobotClient(url, secret);
     }
 

@@ -21,9 +21,7 @@ import org.apache.seatunnel.api.configuration.ReadonlyConfig;
 import org.apache.seatunnel.api.sink.SeaTunnelSink;
 import org.apache.seatunnel.api.sink.SinkWriter.Context;
 import org.apache.seatunnel.api.sink.SupportMultiTableSink;
-import org.apache.seatunnel.api.table.catalog.CatalogTable;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
-import org.apache.seatunnel.api.table.type.SeaTunnelRowType;
 import org.apache.seatunnel.connectors.seatunnel.common.sink.AbstractSimpleSink;
 import org.apache.seatunnel.connectors.seatunnel.common.sink.AbstractSinkWriter;
 import org.apache.seatunnel.connectors.seatunnel.config.DingTalkConfig;
@@ -39,21 +37,17 @@ public class DingTalkSink extends AbstractSimpleSink<SeaTunnelRow, Void>
 
     private DingTalkConfig pluginConfig;
 
-    private SeaTunnelRowType seaTunnelRowType;
-
     @Override
     public String getPluginName() {
         return "DingTalk";
     }
 
-    public DingTalkSink(ReadonlyConfig config, CatalogTable catalogTable) {
+    public DingTalkSink(ReadonlyConfig config) {
         this.pluginConfig = new DingTalkConfig(config);
-        this.seaTunnelRowType = catalogTable.getTableSchema().toPhysicalRowDataType();
     }
 
     @Override
     public AbstractSinkWriter<SeaTunnelRow, Void> createWriter(Context context) throws IOException {
-        return new DingTalkWriter(
-                this.seaTunnelRowType, pluginConfig.getUrl(), pluginConfig.getSecret());
+        return new DingTalkWriter(pluginConfig.getUrl(), pluginConfig.getSecret());
     }
 }

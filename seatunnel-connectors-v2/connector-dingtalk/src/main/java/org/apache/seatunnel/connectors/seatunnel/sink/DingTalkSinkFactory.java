@@ -44,6 +44,6 @@ public class DingTalkSinkFactory implements TableSinkFactory {
     @Override
     public TableSink createSink(TableSinkFactoryContext context) {
         ReadonlyConfig config = context.getOptions();
-        return () -> new DingTalkSink(config, context.getCatalogTable());
+        return () -> new DingTalkSink(config);
     }
 }
